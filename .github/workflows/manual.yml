@@ -1,0 +1,18 @@
+
+name: Reproducible builds
+run-name: ${{ github.actor }} is building 🚀
+on: [push]
+jobs:
+  Build:
+    runs-on: ubuntu-22.04.5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.23.4'
+      - run: LDFLAGS="-s -w -buildid=" BUILD_ARGS="-trimpath -buildvcs=false" make build
+      - run: sha256sum build/eotsd
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eotsd
+          path: build/eotsd
