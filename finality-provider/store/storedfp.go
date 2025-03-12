@@ -58,6 +58,7 @@ func (sfp *StoredFinalityProvider) GetBIP340BTCPK() *bbn.BIP340PubKey {
 
 func (sfp *StoredFinalityProvider) ToFinalityProviderInfo() *proto.FinalityProviderInfo {
 	return &proto.FinalityProviderInfo{
+		ChainId:  sfp.ChainID,
 		FpAddr:   sfp.FPAddr,
 		BtcPkHex: sfp.GetBIP340BTCPK().MarshalHex(),
 		Description: &proto.Description{
